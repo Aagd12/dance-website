@@ -6,9 +6,9 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
 
-mongoose.connect('mongodb://localhost/contactdance', { useNewUrlParser: true },{ useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/contactdance', { useNewUrlParser: true }, { useUnifiedTopology: true });
 
-const port = 80;
+const port = process.env.PORT || 8000;
 
 const db = mongoose.connection;
 const kittySchema = new mongoose.Schema({
@@ -40,11 +40,11 @@ app.get('/contact', (req, res) => {
 app.post('/contact', (req, res) => {
     var myData = new contactus(req.body);
     myData.save().then(() => {
-        res.send('This item has been saved to the database')
-    }).catch(() => {
-        res.status(400).send('item was not saved to the databse')
-    })
-    // res.status(200).render('contact.pug');
+            res.send('This item has been saved to the database')
+        }).catch(() => {
+            res.status(400).send('item was not saved to the databse')
+        })
+        // res.status(200).render('contact.pug');
 });
 // START THE SERVER
 app.listen(port, () => {
