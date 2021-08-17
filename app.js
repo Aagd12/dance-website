@@ -6,11 +6,12 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
 
-mongoose.connect('mongodb://localhost/contactdance', { useNewUrlParser: true }, { useUnifiedTopology: true });
-
+mongoose.connect('mongodb+srv://saurabh:saurabh@123t@cluster0.7cw4e.mongodb.net/dancewebsite?retryWrites=true&w=majority', { useNewUrlParser: true }, { useUnifiedTopology: true }).then(() => {
+    console.log("connection succesful");
+}).catch(() => {
+    console.log("  no connection");
+})
 const port = process.env.PORT || 8000;
-
-const db = mongoose.connection;
 const kittySchema = new mongoose.Schema({
     name: String,
     age: Number,
