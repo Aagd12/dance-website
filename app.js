@@ -5,12 +5,13 @@ const app = express();
 // const { addListener } = require("process");
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
-
-mongoose.connect('mongodb+srv://saurabh:saurabh@123t@cluster0.7cw4e.mongodb.net/dancewebsite?retryWrites=true&w=majority', { useNewUrlParser: true }, { useUnifiedTopology: true }).then(() => {
-    console.log("connection succesful");
-}).catch(() => {
-    console.log("  no connection");
-})
+const db = 'mongodb+srv://saurabh:saurabh@123t@cluster0.7cw4e.mongodb.net/dancewebsite?retryWrites=true&w=majority';
+mongoose.connect('mongodb+srv://saurabh:saurabh@123t@cluster0.7cw4e.mongodb.net/dancewebsite?retryWrites=true&w=majority', { useNewUrlParser: true }, { useUnifiedTopology: true }, )
+    .then(() => {
+        console.log("connection succesful");
+    }).catch(() => {
+        console.log("  no connection");
+    })
 const port = process.env.PORT || 8000;
 const kittySchema = new mongoose.Schema({
     name: String,
@@ -41,7 +42,9 @@ app.get('/contact', (req, res) => {
 app.post('/contact', (req, res) => {
     var myData = new contactus(req.body);
     myData.save().then(() => {
-            res.send('This item has been saved to the database')
+
+            res.render('home.pug');
+
         }).catch(() => {
             res.status(400).send('item was not saved to the databse')
         })
